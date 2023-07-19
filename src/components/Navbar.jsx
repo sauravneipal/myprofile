@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          My Portfolio
+          My Profile
         </Link>
         <button
           className="navbar-toggler"
@@ -23,17 +23,13 @@ const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <Link className="nav-link" to="/">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">
                 About
               </Link>
             </li>
+           
             <li className="nav-item">
-              <Link className="nav-link" to="/projects">
-                Projects
+              <Link className="nav-link" to="/gallery">
+                Gallery
               </Link>
             </li>
             <li className="nav-item">

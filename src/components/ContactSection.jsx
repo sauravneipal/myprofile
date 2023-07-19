@@ -2,6 +2,12 @@ import Aos from "aos";
 import React, { useEffect,useRef, useState } from "react";
 import validation from "./Validation";
 import emailjs from '@emailjs/browser';
+import { Link, useNavigate } from "react-router-dom";
+import emailSent from "./email-sent.json"
+import Lottie from "lottie-react";
+import contactMe from "./contactMe.json"
+
+
 
 
 const ContactSection = () => {
@@ -12,7 +18,8 @@ const ContactSection = () => {
   const[show, setShow] = useState(true);
   // const [dp, setDp] = useState("none");
   const form = useRef();
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (errors.name === "" && errors.email === "" && errors.message === "") {
       setShow(false);
@@ -23,20 +30,21 @@ const ContactSection = () => {
     e.preventDefault();
     setErrors(validation(name,email,message));
    
-   emailjs.sendForm('service_t70jr1n', 'template_ycwbynd', form.current, 'WNa-uoBGOHCdkzP5k')
-   .then((result) => {
-       console.log(result.text);
-       console.log("sent successfully");
+  //  emailjs.sendForm('service_t70jr1n', 'template_ycwbynd', form.current, 'WNa-uoBGOHCdkzP5k')
+  //  .then((result) => {
+  //      console.log(result.text);
+  //      console.log("sent successfully");
       
-   }, (error) => {
-       console.log(error.text);
-       alert("message not sent");
-       setShow(true);
-   });
+  //  }, (error) => {
+  //      console.log(error.text);
+  //      alert("message not sent");
+  //      setShow(true);
+  //  });
   };
 
   const goBack = ()=>{
     setShow(true);
+    // navigate(-1);
     setName("");
     setEmail("");
     setMessage("");
@@ -49,11 +57,13 @@ const ContactSection = () => {
 },[])
 
   return (
-    <section className="contact-section"  >
-      <div className="container" data-aos="fade-left"
-    data-aos-duration="400" data-aos-easing="ease-in-sine">
+     
+    <section className="contact-section">
+      <div className="container"  data-aos="slide-left"
+          data-aos-duration="400" data-aos-easing="ease-in">
         <h2>Contact</h2>
         {show ? 
+        <>
         <form ref={form} onSubmit={sendEmail}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
@@ -104,11 +114,17 @@ const ContactSection = () => {
             Send
           </button>
         </form>
+        <Lottie className="lottie-contact" animationData={contactMe} loop={true} delay= "500" />
+        </>
         :
         <div className="contact-success">
-          <h5>Send successfully</h5>
-          <button className="btn btn-primary" onClick={goBack}>
-            Go Back
+        <div className="lottie-email">  
+        <Lottie animationData={emailSent} loop={true} delay= "500" />
+          </div>
+          <span>Send successfully</span>  
+    
+          <button className="btn btn-primary" onClick={goBack}><Link to= "/contact"></Link>
+          Go Back
           </button>
         </div>
         }
